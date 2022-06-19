@@ -3,15 +3,15 @@
 <div class="main-content">
     <div class="section__content section__content--p30">
         <div class="container-fluid">
-            <div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1>Category</h1>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="">
-                            <button type="button" class="btn btn-primary">Add Category</button>
-                        </a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="overview-wrap">
+                        <h2 class="title-1">Category</h2>
+                        <a href="{{ route('category.create') }}">
+                        <button class="au-btn au-btn-icon btn-success">
+                            <i class="zmdi zmdi-plus"></i>Add
+                        </button>
+                    </a>
                     </div>
                 </div>
             </div>

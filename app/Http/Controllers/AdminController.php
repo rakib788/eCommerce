@@ -13,8 +13,14 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->session()->has('ADMIN_LOGIN')) {
+            return redirect (route('admin.dasboard'));
+        } else {
+            $request->session()->flash('error', 'Access Deniel');
+            return view('admin.login.admin_login');
+        }
         return view('admin.login.admin_login');
     }
     /**
@@ -27,17 +33,26 @@ class AdminController extends Controller
     {
         $email = $request->post('email');
         $password = $request->post('password');
-        $result = Admin::where(['email' => $email, 'password' => $password])->get();
-        if (isset($result['0']->id)) {
+        // $result = Admin::where(['email' => $email, 'password' => $password])->get();
+        $result = Admin::where(['email' => $email])->first();
+        if($result){
+            if (Hash::check($request->post('password'),$result->password)) {
             $request->session()->put('ADMIN_LOGIN', true);
-            $request->session()->put('ADMIN_ID',$result['0']->id);
+            $request->session()->put('ADMIN_ID',$result->id);
             return redirect(route('admin.dasboard'));
-        } else {
+            }else{
+                $request->session()->flash('error', 'Enter the Correct passoword');
+                return redirect(route('admin.index'));
+            }
+        }else{
             $request->session()->flash('error', 'Enter the valid login details');
             return redirect(route('admin.index'));
         }
     }
     public function dashboard(){
         return view('admin.dashboard');
+    }
+    public function logout(){
+
     }
 }

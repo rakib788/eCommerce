@@ -42,9 +42,7 @@
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
-                            <a href="#">
-                                <img src="{{ asset('backend/assets/images/icon/logo.png') }}" alt="CoolAdmin">
-                            </a>
+                            {{ Config::get('constants.site_name') }}
                         </div>
                         <div class="login-form">
                             <form action="{{ route('admin.auth') }}" method="post">
