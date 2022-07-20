@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CouponController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,5 @@ Route::group(['middleware'=>'admin_auth'],function(){
     })->name('admin.logout');
 
     Route::resource('admin/category', CategoryController::class);
+    Route::resource('admin/coupon', CouponController::class);
 });

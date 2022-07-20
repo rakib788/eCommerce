@@ -1,5 +1,5 @@
 @extends('admin.Layouts.app')
-@section('page_title','Category')
+@section('page_title','Coupon')
 @section('content')
 <div class="main-content">
     <div class="section__content section__content--p30">
@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="overview-wrap">
-                        <h2 class="title-1">Category</h2>
-                        <a href="{{ route('category.create') }}">
+                        <h2 class="title-1">Coupon</h2>
+                        <a href="{{ route('coupon.create') }}">
                         <button class="au-btn au-btn-icon btn-success">
                             <i class="zmdi zmdi-plus"></i>Add
                         </button>
@@ -34,23 +34,25 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Category Name</th>
-                                    <th>Category Slug</th>
+                                    <th>Title</th>
+                                    <th>Code</th>
+                                    <th>Value</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($categories as $category)
+                                @foreach ($coupons as $coupon)
                                 <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->category_name }}</td>
-                                        <td>{{ $category->category_slug }}</td>
+                                        <td>{{ $coupon->id }}</td>
+                                        <td>{{ $coupon->title }}</td>
+                                        <td>{{ $coupon->code }}</td>
+                                        <td>{{ $coupon->value }}</td>
                                         <td class="display">
                                             <div>
-                                                <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                                <a href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-sm btn-info">Edit</a>
                                             </div>
                                             <div class="btn-ml">
-                                                <form action="{{ route('category.destroy', $category->id) }}" method="POST">
+                                                <form action="{{ route('coupon.destroy', $coupon->id) }}" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-sm btn-danger"> delete</button>

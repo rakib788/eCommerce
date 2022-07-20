@@ -16,8 +16,8 @@
                         <i class="fas fa-tachometer-alt"></i>Category</a>
                 </li>
                 <li>
-                    <a href="map.html">
-                        <i class="fas fa-map-marker-alt"></i>Maps</a>
+                    <a href="{{ route('coupon.index') }}">
+                        <i class="fas fa-map-marker-alt"></i>Coupon</a>
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
