@@ -1,5 +1,6 @@
 @extends('admin.Layouts.app')
 @section('page_title','Category')
+@section('category_select','active')
 @section('content')
 <div class="main-content">
     <div class="section__content section__content--p30">
@@ -18,6 +19,11 @@
             </div>
             <div class="row m-t-30">
                 <div class="col-md-12">
+                    @if(session()->has('update'))
+                        <div class="alert alert-success text-center">
+                            {{ session()->get('update') }}
+                        </div>
+                    @endif
                     @if(session()->has('message'))
                         <div class="alert alert-danger text-center">
                             {{ session()->get('message') }}
@@ -48,6 +54,13 @@
                                         <td class="display">
                                             <div>
                                                 <a href="{{ route('category.edit', $category->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                            </div>
+                                            <div class="btn-ml">
+                                                @if ($category->status==1)
+                                                <a href="{{ url('admin/category/status/0') }}/{{ $category->id }}" class="btn btn-sm btn-primary">Active</a>
+                                                @elseif ($category->status==0)
+                                                <a href="{{ url('admin/category/status/1') }}/{{ $category->id }}" class="btn btn-sm btn-warning">Deactive</a>
+                                                @endif
                                             </div>
                                             <div class="btn-ml">
                                                 <form action="{{ route('category.destroy', $category->id) }}" method="POST">

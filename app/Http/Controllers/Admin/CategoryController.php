@@ -44,6 +44,7 @@ class CategoryController extends Controller
         $data = new Category();
         $data->category_name = $request->post('category_name');
         $data->category_slug = $request->post('category_slug');
+        $data->status = 1;
         $data->save();
         $request->session()->flash('message','Category Inserted');
         return redirect()->back();
@@ -105,6 +106,14 @@ class CategoryController extends Controller
     {
         $category = Category::where('id', $id)->delete();
         $request->session()->flash('message','Category Deleted');
+        return redirect()->back();
+    }
+    public function status(Request $request,$status, $id)
+    {
+        $category = Category::find($id);
+        $category->status=$status;
+        $category-> save();
+        $request->session()->flash('update','Category Status Updated');
         return redirect()->back();
     }
 }

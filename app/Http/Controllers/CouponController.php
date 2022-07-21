@@ -109,4 +109,13 @@ class CouponController extends Controller
         $request->session()->flash('message','Coupon Deleted');
         return redirect()->back();
     }
+    public function status(Request $request,$status, $id)
+    {
+        $coupon = Coupon::find($id);
+        $coupon->status=$status;
+        $coupon-> save();
+        $request->session()->flash('update','Category Status Updated');
+        return redirect()->back();
+    }
+
 }

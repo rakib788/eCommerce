@@ -7,17 +7,17 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                <li>
+                <li class="@yield('dashboard_select')">
                     <a class="" href="{{ route('admin.dasboard') }}">
                         <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                 </li>
-                <li>
+                <li class="@yield('category_select')">
                     <a class="" href="{{ route('category.index') }}">
-                        <i class="fas fa-tachometer-alt"></i>Category</a>
+                        <i class="fa fa-list"></i>Category</a>
                 </li>
-                <li>
+                <li class="@yield('coupon_select')">
                     <a href="{{ route('coupon.index') }}">
-                        <i class="fas fa-map-marker-alt"></i>Coupon</a>
+                        <i class="fa fa-tag"></i>Coupon</a>
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">

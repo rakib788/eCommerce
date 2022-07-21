@@ -1,5 +1,6 @@
 @extends('admin.Layouts.app')
 @section('page_title','Coupon')
+@section('coupon_select','active')
 @section('content')
 <div class="main-content">
     <div class="section__content section__content--p30">
@@ -50,6 +51,13 @@
                                         <td class="display">
                                             <div>
                                                 <a href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                            </div>
+                                            <div class="btn-ml">
+                                                @if ($coupon->status==1)
+                                                <a href="{{ url('admin/coupon/status/0') }}/{{ $coupon->id }}" class="btn btn-sm btn-primary">Active</a>
+                                                @elseif ($coupon->status==0)
+                                                <a href="{{ url('admin/coupon/status/1') }}/{{ $coupon->id }}" class="btn btn-sm btn-warning">Deactive</a>
+                                                @endif
                                             </div>
                                             <div class="btn-ml">
                                                 <form action="{{ route('coupon.destroy', $coupon->id) }}" method="POST">

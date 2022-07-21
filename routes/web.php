@@ -33,5 +33,7 @@ Route::group(['middleware'=>'admin_auth'],function(){
     })->name('admin.logout');
 
     Route::resource('admin/category', CategoryController::class);
+    Route::get('admin/category/status/{status}/{id}',[CategoryController::class, 'status'])->name('category.status');
     Route::resource('admin/coupon', CouponController::class);
+    Route::get('admin/coupon/status/{status}/{id}',[CouponController::class, 'status'])->name('category.status');
 });

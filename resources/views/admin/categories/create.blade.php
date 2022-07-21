@@ -1,5 +1,6 @@
 @extends('admin.Layouts.app')
 @section('page_title','Manage Category')
+@section('category_select','active')
 @section('content')
 <div class="main-content">
     <div class="section__content section__content--p30">
