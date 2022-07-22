@@ -19,6 +19,10 @@
                     <a href="{{ route('coupon.index') }}">
                         <i class="fa fa-tag"></i>Coupon</a>
                 </li>
+                <li class="@yield('size_select')">
+                    <a href="{{ route('size.index') }}">
+                        <i class="fa fa-tag"></i>Size</a>
+                </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
                         <i class="fas fa-copy"></i>Pages</a>
