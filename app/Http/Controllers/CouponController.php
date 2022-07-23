@@ -45,6 +45,7 @@ class CouponController extends Controller
         $data->title = $request->post('title');
         $data->code = $request->post('code');
         $data->value = $request->post('value');
+        $data->status = 1;
         $data->save();
         $request->session()->flash('message','Coupon Inserted');
         return redirect()->back();

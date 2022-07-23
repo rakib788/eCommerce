@@ -21,7 +21,11 @@
                 </li>
                 <li class="@yield('size_select')">
                     <a href="{{ route('size.index') }}">
-                        <i class="fa fa-tag"></i>Size</a>
+                        <i class="fas fa-window-maximize"></i>Size</a>
+                </li>
+                <li class="@yield('color_select')">
+                    <a href="{{ route('color.index') }}">
+                        <i class="fas fa-paint-brush"></i>Color</a>
                 </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">

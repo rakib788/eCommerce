@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
@@ -36,8 +37,10 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::resource('admin/category', CategoryController::class);
     Route::get('admin/category/status/{status}/{id}',[CategoryController::class, 'status'])->name('category.status');
     Route::resource('admin/coupon', CouponController::class);
-    Route::get('admin/coupon/status/{status}/{id}',[CouponController::class, 'status'])->name('category.status');
+    Route::get('admin/coupon/status/{status}/{id}',[CouponController::class, 'status'])->name('coupon.status');
     Route::resource('admin/size', SizeController::class);
-    Route::get('admin/size/status/{status}/{id}',[SizeController::class, 'status'])->name('category.status');
+    Route::get('admin/size/status/{status}/{id}',[SizeController::class, 'status'])->name('size.status');
+    Route::resource('admin/color', ColorController::class);
+    Route::get('admin/color/status/{status}/{id}',[ColorController::class, 'status'])->name('color.status');
 
 });
