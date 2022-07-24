@@ -27,6 +27,10 @@
                     <a href="{{ route('color.index') }}">
                         <i class="fas fa-paint-brush"></i>Color</a>
                 </li>
+                <li class="@yield('product_select')">
+                    <a href="{{ route('product.index') }}">
+                        <i class="fa fa-product-hunt" aria-hidden="true"></i>Product</a>
+                </li>
                 <li class="has-sub">
                     <a class="js-arrow" href="#">
                         <i class="fas fa-copy"></i>Pages</a>

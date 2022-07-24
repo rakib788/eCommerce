@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +43,7 @@ Route::group(['middleware'=>'admin_auth'],function(){
     Route::get('admin/size/status/{status}/{id}',[SizeController::class, 'status'])->name('size.status');
     Route::resource('admin/color', ColorController::class);
     Route::get('admin/color/status/{status}/{id}',[ColorController::class, 'status'])->name('color.status');
+    Route::resource('admin/product', ProductController::class);
+    Route::get('admin/product/status/{status}/{id}',[ProductController::class, 'status'])->name('product.status');
 
 });
