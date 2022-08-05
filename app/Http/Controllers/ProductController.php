@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Product;
+use App\Models\Product_Attribute;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +31,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where(['status'=>1])->get();
-        return view('admin.products.create', compact('categories'));
+        $sizes = Size::where(['status'=>1])->get();
+        $colors = Color::where(['status'=>1])->get();
+        return view('admin.products.create', compact('categories','sizes','colors'));
     }
 
     /**
@@ -39,6 +44,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // echo '<pre>';
+        // print_r($request->post());
+        // die();
         $request->validate([
             'name' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png',
@@ -67,6 +75,39 @@ class ProductController extends Controller
             $data['image'] = $img_name;
             }
         $data->save();
+        $pid = $data->id;
+        // product_attr Start
+
+            $skuArr = $request->post('sku');
+            $mrpArr = $request->post('mrp');
+            $priceArr = $request->post('price');
+            $quantityArr = $request->post('quantity');
+            $size_idArr = $request->post('size_id');
+            $color_idArr = $request->post('color_id');
+            foreach ($skuArr as $key => $value) {
+                $product_attr_arr['product_id']=$pid;
+                $product_attr_arr['sku']=$skuArr[$key];
+                $product_attr_arr['attr_image']='test';
+                $product_attr_arr['mrp']=$mrpArr[$key];
+                $product_attr_arr['price']=$priceArr[$key];
+                $product_attr_arr['quantity']=$quantityArr[$key];
+                if ($size_idArr[$key]=='') {
+                    $product_attr_arr['size_id']=0;
+                }else{
+                    $product_attr_arr['size_id']=$size_idArr[$key];
+                }
+                if ($color_idArr[$key]=='') {
+                    $product_attr_arr['color_id']=0;
+                }else{
+                    $product_attr_arr['color_id']=$color_idArr[$key];
+                }
+
+                 Product_Attribute::insert($product_attr_arr);
+
+            }
+        // product_attr end
+
+
         $request->session()->flash('message','Product Inserted');
         return redirect()->back();
     }
@@ -123,6 +164,14 @@ class ProductController extends Controller
             'warranty'=>$request->warranty,
             'status' => 1,
         ];
+        $image = $request->file('image');
+            if ($request->HasFile('image')){
+            $img_full_name = time().'.'.$image->getClientOriginalExtension();
+            $img_path = 'media/product/';
+            $img_name = $img_path.$img_full_name;
+            $image->move($img_path,$img_full_name);
+            $data['image'] = $img_name;
+            }
         Product::where('id',$id)->update($data);
         $request->session()->flash('messages','Product updated');
         return redirect()->route('product.index');

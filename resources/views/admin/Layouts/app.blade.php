@@ -182,6 +182,7 @@
       <script src="{{ asset('backend/assets/vendor/chartjs/Chart.bundle.min.js') }}"></script>
       <script src="{{ asset('backend/assets/vendor/select2/select2.min.js') }}">
       </script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 
       <!-- Main JS-->
       <script src="{{ asset('backend/assets/js/main.js') }}"></script>

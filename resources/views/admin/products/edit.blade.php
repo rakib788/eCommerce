@@ -10,7 +10,7 @@
                     <div class="overview-wrap">
                         <h2 class="title-1">Manage Product</h2>
                         <a href="{{ route('product.index') }}">
-                        <button class="au-btn au-btn-icon btn-dark">
+                        <button class="au-btn au-btn-icon btn-success">
                             <i class=""></i>Back
                         </button>
                     </a>

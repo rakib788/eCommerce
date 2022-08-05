@@ -463,6 +463,24 @@ section {
     transition: all 0.3s ease;
     cursor: pointer;
 }
+.mb-10{
+    margin-bottom: 10px;
+}
+.au-btn-1 {
+    line-height: 45px;
+    padding: 3px 35px;
+    margin-top: 30px;
+    text-transform: uppercase;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
 .au-btn:hover {
     color: #fff;
