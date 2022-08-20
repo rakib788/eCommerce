@@ -131,9 +131,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $product_attrs = Product_Attribute::get();
+        $sizes = Size::where(['status'=>1])->get();
+        $colors = Color::where(['status'=>1])->get();
         $categories = Category::where(['status'=>1])->get();
         $products = Product::find($id);
-       return view('admin.products.edit', compact('products','categories'));
+       return view('admin.products.edit', compact('products','categories','sizes','colors','product_attrs'));
     }
 
     /**
@@ -149,7 +152,6 @@ class ProductController extends Controller
             'name' => 'required',
             'slug' => 'required|unique:products',
         ]);
-
         $data = [
             'name'=>$request->name,
             'category_id'=>$request->category_id,
@@ -162,19 +164,52 @@ class ProductController extends Controller
             'technical_specification'=>$request->technical_specification,
             'uses'=>$request->uses,
             'warranty'=>$request->warranty,
-            'status' => 1,
+            'image'=>$request->image,
         ];
-        $image = $request->file('image');
-            if ($request->HasFile('image')){
+        if ($request->HasFile('image')){
+            $image = $request->file('image');
             $img_full_name = time().'.'.$image->getClientOriginalExtension();
             $img_path = 'media/product/';
             $img_name = $img_path.$img_full_name;
             $image->move($img_path,$img_full_name);
-            $data['image'] = $img_name;
+            $data['image']=$img_name;
             }
-        Product::where('id',$id)->update($data);
+       $product = Product::where('id',$id)->update($data);
+        // $pid =$product->id;
+        // product_attr Start
+
+            $skuArr = $request->post('sku');
+            $mrpArr = $request->post('mrp');
+            $priceArr = $request->post('price');
+            $quantityArr = $request->post('quantity');
+            $size_idArr = $request->post('size_id');
+            $color_idArr = $request->post('color_id');
+            foreach ($skuArr as $key => $value) {
+                $product_attr_arr['product_id']= 1;
+                $product_attr_arr['sku']=$skuArr[$key];
+                $product_attr_arr['attr_image']='test';
+                $product_attr_arr['mrp']=$mrpArr[$key];
+                $product_attr_arr['price']=$priceArr[$key];
+                $product_attr_arr['quantity']=$quantityArr[$key];
+                if ($size_idArr[$key]=='') {
+                    $product_attr_arr['size_id']=0;
+                }else{
+                    $product_attr_arr['size_id']=$size_idArr[$key];
+                }
+                if ($color_idArr[$key]=='') {
+                    $product_attr_arr['color_id']=0;
+                }else{
+                    $product_attr_arr['color_id']=$color_idArr[$key];
+                }
+                Product_Attribute::create($product_attr_arr);
+
+                //  Product_Attribute::insert($product_attr_arr);
+
+            }
+        // product_attr end
+
         $request->session()->flash('messages','Product updated');
-        return redirect()->route('product.index');
+        return redirect()->back();
     }
 
     /**
