@@ -143,26 +143,34 @@
                 </div>
                 <h2 class="mt-4">Product Attributes</h2>
                 <div class="form-group" id="product_attr_box">
-                    <div class="row m-t-30" id="product_attr_1">
+                    @php
+                        $loop_count_num = 1;
+                    @endphp
+                    @foreach ($product_attrs as $key=>$value)
+                    @php
+                    $loop_count_prev =$loop_count_num;
+                    $pAArr = (array)$value;
+                    @endphp
+                    <div class="row m-t-30" id="product_attr_{{ $loop_count_num++ }}">
                         <div class="col-md-12 form-1" id="">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="sku" class="control-label mb-1">SKU</label>
-                                            <input id="sku" name="sku[]" value="" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
+                                            <input id="sku" name="sku[]" value="{{ $value ['sku'] }}" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="mrp" class="control-label mb-1">MRP</label>
-                                            <input id="mrp" name="mrp[]" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
+                                            <input id="mrp" name="mrp[]" value="{{ $value ['mrp'] }}" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group has-success">
                                             <label for="price" class="control-label mb-1">Price</label>
-                                            <input id="price" name="price[]" type="text" class="form-control cc-name valid" required>
+                                            <input id="price" name="price[]" value="{{ $value ['price'] }}" type="text" class="form-control cc-name valid" required>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -171,7 +179,11 @@
                                             <select name="size_id[]" class="form-control" id="size_id">
                                                 <option value="">Select</option>
                                                 @foreach ($sizes as $row)
+                                                @if ($value ['size_id']==$row->id)
+                                                <option value="{{ $row->id }}" selected>{{ $row->size }}</option>
+                                                @else
                                                 <option value="{{ $row->id }}">{{ $row->size }}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -182,7 +194,11 @@
                                             <select name="color_id[]" class="form-control" id="color_id">
                                                 <option value="">Select</option>
                                                 @foreach ($colors as $row)
+                                                @if ($value ['color_id']==$row->id)
+                                                <option value="{{ $row->id }}" selected>{{ $row->color }}</option>
+                                                @else
                                                 <option value="{{ $row->id }}">{{ $row->color }}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -190,7 +206,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="quantity" class="control-label mb-1">Qunatity</label>
-                                            <input id="quantity" name="quantity[]" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
+                                            <input id="quantity" name="quantity[]"value="{{ $value ['quantity'] }}"  type="text" class="form-control" aria-required="true" aria-invalid="false" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -201,13 +217,20 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            @if ($loop_count_num==2)
                                             <button class="au-btn-1 au-btn-icon btn-success" onclick="add_more()"><i class="fa fa-plus"></i> Add</button>
+                                            @else
+                                            <a href="{{ route('productAttr.destroy',$value ['id']) }}">
+                                                <button class="au-btn-1 au-btn-icon btn-danger" ><i class="fa fa-minus"></i> Remove</button>
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
                 <button type="submit" class="au-btn-1 au-btn-icon btn-primary btn-block">Submit</button>
             </form>

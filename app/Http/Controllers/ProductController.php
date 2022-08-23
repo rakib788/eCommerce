@@ -131,7 +131,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product_attrs = Product_Attribute::get();
+        $product_attrs = Product_Attribute::where(['product_id'=>$id])->get();
         $sizes = Size::where(['status'=>1])->get();
         $colors = Color::where(['status'=>1])->get();
         $categories = Category::where(['status'=>1])->get();
@@ -222,6 +222,12 @@ class ProductController extends Controller
     {
         $product = Product::where('id', $id)->delete();
         $request->session()->flash('message','Product Deleted');
+        return redirect()->back();
+    }
+    public function attr_delete(Request $request,$id)
+    {
+        DB::table('product__attributes')->where(['id'=> $id])->delete();
+        // Product_Attribute::find($id)->delete();
         return redirect()->back();
     }
     public function status(Request $request,$status, $id)
