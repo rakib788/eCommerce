@@ -151,9 +151,15 @@
                     $loop_count_prev =$loop_count_num;
                     $pAArr = (array)$value;
                     @endphp
+                    {{-- <input type="text" id="paid" name="paid[]" value="{{ $pAArr['id'] }}"> --}}
                     <div class="row m-t-30" id="product_attr_{{ $loop_count_num++ }}">
                         <div class="col-md-12 form-1" id="">
                             <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input id="id" name="id[]" value="{{ $value ['id'] }}" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -242,7 +248,7 @@
 function add_more() {
     loop_count++;
 //   var txt1 = "<p>Text.</p>";        // Create text with HTML
-    var html= '<div class="row m-t-30" id="product_attr_'+loop_count+'"><div class="col-md-12 form-1" id=""><div class="row">';
+    var html= '<input id="paid" type="text" name="paid[]" value=""> <div class="row m-t-30" id="product_attr_'+loop_count+'"><div class="col-md-12 form-1" id=""><div class="row">';
 
         html+='<div class="col-md-2"><div class="form-group"><label for="sku" class="control-label mb-1">SKU</label><input id="sku" name="sku[]" type="text" class="form-control" aria-required="true" aria-invalid="false" required></div></div>';
 

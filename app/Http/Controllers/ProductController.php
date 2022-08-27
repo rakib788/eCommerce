@@ -175,7 +175,7 @@ class ProductController extends Controller
             $data['image']=$img_name;
             }
        $product = Product::where('id',$id)->update($data);
-        // $pid =$product->id;
+        $pid =$product->id;
         // product_attr Start
 
             $skuArr = $request->post('sku');
@@ -226,7 +226,7 @@ class ProductController extends Controller
     }
     public function attr_delete(Request $request,$id)
     {
-        DB::table('product__attributes')->where(['id'=> $id])->delete();
+        DB::table('product__attributes')->where(['id'=>$id])->delete();
         // Product_Attribute::find($id)->delete();
         return redirect()->back();
     }
