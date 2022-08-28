@@ -155,11 +155,11 @@
                     <div class="row m-t-30" id="product_attr_{{ $loop_count_num++ }}">
                         <div class="col-md-12 form-1" id="">
                             <div class="form-group">
-                                <div class="col-md-2">
+                                {{-- <div class="col-md-2">
                                     <div class="form-group">
                                         <input id="id" name="id[]" value="{{ $value ['id'] }}" type="text" class="form-control" aria-required="true" aria-invalid="false" required>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -257,9 +257,11 @@ function add_more() {
         html+='<div class="col-md-2"><div class="form-group"><label for="price" class="control-label mb-1">Price</label><input id="price" name="price[]" type="number" class="form-control" aria-required="true" aria-invalid="false" required></div></div>';
 
         var size_id_html=jQuery('#size_id').html();
+        size_id_html = size_id_html.replace("selected", "");
         html+='<div class="col-md-3"><div class="form-group"><label for="size_id" class="control-label mb-1">Size</label><select name="size_id[]" class="form-control" id="size_id">'+size_id_html+'</select></div></div>';
 
         var color_id_html=jQuery('#color_id').html();
+        color_id_html = color_id_html.replace("selected", "");
         html+='<div class="col-md-3"><div class="form-group"><label for="color_id" class="control-label mb-1">Color</label><select name="color_id[]" class="form-control" id="color_id">'+color_id_html+'</select></div></div>';
 
         html+='<div class="col-md-2"><div class="form-group"><label for="quantity" class="control-label mb-1">Qunatity</label><input id="quantity" name="quantity[]" type="number" class="form-control" aria-required="true" aria-invalid="false" required></div></div>';

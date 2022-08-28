@@ -51,6 +51,7 @@ class ProductController extends Controller
             'name' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png',
             'slug' => 'required|unique:products',
+            'attr_image.*' => 'mimes:png,jpg,jpeg'
         ]);
         $data = new Product();
         $data->name = $request->post('name');
@@ -87,7 +88,6 @@ class ProductController extends Controller
             foreach ($skuArr as $key => $value) {
                 $product_attr_arr['product_id']=$pid;
                 $product_attr_arr['sku']=$skuArr[$key];
-                $product_attr_arr['attr_image']='test';
                 $product_attr_arr['mrp']=$mrpArr[$key];
                 $product_attr_arr['price']=$priceArr[$key];
                 $product_attr_arr['quantity']=$quantityArr[$key];
@@ -96,11 +96,27 @@ class ProductController extends Controller
                 }else{
                     $product_attr_arr['size_id']=$size_idArr[$key];
                 }
+
                 if ($color_idArr[$key]=='') {
                     $product_attr_arr['color_id']=0;
                 }else{
                     $product_attr_arr['color_id']=$color_idArr[$key];
                 }
+
+                // $product_attr_arr['attr_image']='test';
+                if ($request->hasFile("attr_image.$key")) {
+                    $attr_image =$request->file("attr_image.$key");
+                    $ext = $attr_image->getClientOriginalExtension();
+                    $image_name = time().'.'.$ext;
+                    // $img_path = 'media/product_attr/';
+                    $request->file("attr_image.$key")->storePubliclyAs('media/product_attr',$image_name);
+                    $product_attr_arr['attr_image']=$image_name;
+
+                }else{
+                    $product_attr_arr['attr_image']="";
+
+                }
+
 
                  Product_Attribute::insert($product_attr_arr);
 
@@ -226,8 +242,8 @@ class ProductController extends Controller
     }
     public function attr_delete(Request $request,$id)
     {
-        DB::table('product__attributes')->where(['id'=>$id])->delete();
-        // Product_Attribute::find($id)->delete();
+        // DB::table('product__attributes')->where(['id'=>$id])->delete();
+        Product_Attribute::find($id)->delete();
         return redirect()->back();
     }
     public function status(Request $request,$status, $id)
